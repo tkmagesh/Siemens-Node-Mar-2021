@@ -46,3 +46,5 @@ Use Case : 3
     Non Blocking
     Event Loop (Scheduler)
     Effective for IO intensive operations (Not suitable for CPU intensive operations)
+
+Never use setTimeout in Node.js, instead use "setImmediate"
