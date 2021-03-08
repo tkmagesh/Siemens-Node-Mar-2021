@@ -60,4 +60,8 @@ Node.js Module System (CommonJS module)
     - Everything defined in a JS file is considered PRIVATE
     - Public entities have to be explicity exported
     - To use the public entities from other JS files, they have to explicitly imported
+
+Two reasons for exporting a function
+    1. to create a factory
+    2. to pass the input to the loaded module
     
