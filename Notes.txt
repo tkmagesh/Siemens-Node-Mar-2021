@@ -47,4 +47,17 @@ Use Case : 3
     Event Loop (Scheduler)
     Effective for IO intensive operations (Not suitable for CPU intensive operations)
 
+Use Case : 4
+    Non Blocking (UI)
+    CPU intensive (multi-threaded)
+    Web Workers
+
+
 Never use setTimeout in Node.js, instead use "setImmediate"
+
+Node.js Module System (CommonJS module)
+
+    - Everything defined in a JS file is considered PRIVATE
+    - Public entities have to be explicity exported
+    - To use the public entities from other JS files, they have to explicitly imported
+    
