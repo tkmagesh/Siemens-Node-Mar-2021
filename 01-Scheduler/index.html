@@ -7,7 +7,7 @@
     <title>Scheduler Demo</title>
     <script>
         (function(){
-            function doWork(){
+            function doWork(workCompleted, workProgress){
                 var currentIteration = 0,
                     totalIterations = 1000;
 
@@ -18,10 +18,16 @@
 
                             }
                     ++currentIteration;
+                    if ( typeof workProgress === 'function' && currentIteration % 10 === 0){
+                        var percentCompleted = (currentIteration / totalIterations) * 100;
+                        workProgress(percentCompleted);
+                    }
                     if (currentIteration < totalIterations){
                         setTimeout(oneIteration);
                     } else {
                         console.log('Job done!!');
+                        if (typeof workCompleted === 'function')
+                            workCompleted();
                     }
                 }
 
@@ -33,13 +39,17 @@
             }
             function onBtnDoWorkClick(){
                 displayMessage("Work Started");
-                setTimeout(triggerWork);
+                doWork(onWorkCompletion, onWorkProgress);
             }
 
-            function triggerWork(){
-                doWork();
+            function onWorkCompletion(){
                 displayMessage("Work Completed");
             }
+
+            function onWorkProgress(percentCompleted){
+                document.getElementById('workProgress').value = percentCompleted;
+            }
+
             function onDocumentLoad(){
                 var btnDoWork = document.getElementById('btnDoWork');
                 btnDoWork.addEventListener('click',onBtnDoWorkClick);
@@ -54,6 +64,9 @@
     <hr>
     <input type="text" name="" id="">
     <input type="button" value="Do Work" id="btnDoWork">
+    <div>
+        <progress id="workProgress" min="0" max="100" value="0"></progress>
+    </div>
     <div id="divMessages"></div>
 </body>
 </html>
