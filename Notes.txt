@@ -1,0 +1,48 @@
+Total Experience
+Primary Skillset
+Experience in JavaScript (Any Framework)
+
+What is Node.js?
+    Serverside JavaScript
+    Framework for building Service applications
+    
+    
+JavaScript Runtime
+
+C
+1980 - C++
+1995 - Ruby
+1997 - Java
+1998 - C#
+
+2008 - Node.js
+
+Extremely less resources
+
+Single Threaded Event Loop
+
+A Visitor
+    Visitor Ledger
+    Gadget Ledger
+    Escorted
+
+Courier Guy
+    Courier Ledger
+
+Associate
+    Temp Badge Ledger
+
+
+Use Case : 1
+    Single Threaded
+    Blocking
+
+Use Case : 2
+    Multi Threaded
+    Blocking
+
+Use Case : 3
+    Single Threaded
+    Non Blocking
+    Event Loop (Scheduler)
+    Effective for IO intensive operations (Not suitable for CPU intensive operations)
