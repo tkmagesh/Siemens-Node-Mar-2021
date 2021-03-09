@@ -6,6 +6,9 @@ var stream = fs.createReadStream('./sample.txt', { encoding : 'utf8', highWaterM
 var readCount = 0;
 stream.on('data', function(chunk){
     ++readCount;
+});
+
+stream.on('data', function(chunk){
     console.log(chunk.length);
 });
 

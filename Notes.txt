@@ -75,3 +75,7 @@ Multi-threaded
 Single-threaded
     Resource - Less
     Performance - No
+
+
+EventEmitter
+Readable Stream, Writable Stream
