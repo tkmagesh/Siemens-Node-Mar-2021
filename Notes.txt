@@ -79,3 +79,31 @@ Single-threaded
 
 EventEmitter
 Readable Stream, Writable Stream
+
+
+GET http://localhost:8080 
+    => serve index.html
+
+GET http://localhost:8080/index.html 
+    => serve index.html
+
+GET http://localhost:8080/abc.html 
+    => serve 404
+
+GET http://localhost:8080/calculator-get.html 
+    => serve calculator-get.html
+
+GET http://localhost:8080/calculator-post.html 
+    => serve calculator-post.html
+
+GET http://localhost:8080/calculator?op=add&x=100&y=200 
+    => 300
+
+POST http://localhost:8080/calculator (with req body op=add&x=100&y=200) 
+    => 300
+
+GET/POST http://localhost:8080/abc 
+    => serve 404
+
+PUT/PATCH/DELETE/OPTIONS/HEAD 
+    => 405
