@@ -1,6 +1,6 @@
 var path = require('path'),
     fs = require('fs');
-    
+
 var staticResExtns = [ '.html', '.css', '.js', '.png', '.jpg', '.xml', '.json', '.txt' ];
 
 function isStatic(resourceName){
@@ -8,15 +8,30 @@ function isStatic(resourceName){
     return staticResExtns.indexOf(resExn) !== -1;
 }
 
-module.exports = function(req, res){
+module.exports = function(req, res, next){
     var resourceName = req.urlObj.pathname === '/' ? '/index.html' : req.urlObj.pathname;
-    if (isStatic(resourceName)){
-        var resourceFullName = path.join(__dirname, resourceName);
-        if (!fs.existsSync(resourceFullName)){
-            res.statusCode = 404;
+    var resourceFullName = path.join(__dirname, resourceName);
+    if (isStatic(resourceName) && fs.existsSync(resourceFullName)){
+        /* fs.createReadStream(resourceFullName).pipe(res); */
+        
+        var stream = fs.createReadStream(resourceFullName);
+        stream.on('data', function(chunk){
+            console.log('stream-data event triggered')
+            res.write(chunk);
+        });
+        stream.on('end', function(){
+            console.log('stream-end event triggered')
             res.end();
-            return;
-        }
-        fs.createReadStream(resourceFullName).pipe(res);
+            next();
+        }); 
+        
+
+        /* 
+        var fileContents = fs.readFileSync(resourceFullName);
+        res.write(fileContents);
+        res.end(); 
+        */
+    } else {
+        next();
     }
 }

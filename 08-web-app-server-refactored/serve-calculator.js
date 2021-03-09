@@ -1,7 +1,7 @@
 var querystring = require('querystring'),
     calculator = require('./calculator');
-    
-module.exports = function(req, res){
+
+module.exports = function(req, res, next){
     if (req.urlObj.pathname === '/calculator') {
         if (req.method === 'GET'){
             var op = req.query.op,
@@ -24,6 +24,8 @@ module.exports = function(req, res){
             }
             res.write(result.toString());
             res.end();
+            console.log('calculator-get request processed');
+            return next();
         } else if (req.method === 'POST'){
             var rawData = '';
             req.on('data', function(chunk){
@@ -52,10 +54,13 @@ module.exports = function(req, res){
                 }
                 res.write(result.toString());
                 res.end();
+                return next();
             })
         } else {
             res.statusCode = 405 ; //Method Not Allowed
             res.end();
         }
+    } else {
+        next();
     }
 };

@@ -1,5 +1,5 @@
 
-module.exports = function(req){
+module.exports = function(req, res, next){
     var urlObj = new URL(req.url, `http://${req.headers.host}`);
     var query = {};
     for( let [key,value] of urlObj.searchParams){
@@ -7,4 +7,5 @@ module.exports = function(req){
     }
     req['urlObj'] = urlObj;
     req['query'] = query;
+    next();
 }
