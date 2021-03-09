@@ -65,3 +65,13 @@ Two reasons for exporting a function
     1. to create a factory
     2. to pass the input to the loaded module
     
+
+Async
+
+Multi-threaded
+    Resource - More
+    Performance - YES
+
+Single-threaded
+    Resource - Less
+    Performance - No
