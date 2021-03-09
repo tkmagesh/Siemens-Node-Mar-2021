@@ -12,8 +12,10 @@ module.exports = function(req, res, next){
     var resourceName = req.urlObj.pathname === '/' ? '/index.html' : req.urlObj.pathname;
     var resourceFullName = path.join(__dirname, resourceName);
     if (isStatic(resourceName) && fs.existsSync(resourceFullName)){
-        /* fs.createReadStream(resourceFullName).pipe(res); */
+        var stream = fs.createReadStream(resourceFullName).pipe(res);
+        stream.on('end', next);
         
+        /* 
         var stream = fs.createReadStream(resourceFullName);
         stream.on('data', function(chunk){
             console.log('stream-data event triggered')
@@ -23,7 +25,8 @@ module.exports = function(req, res, next){
             console.log('stream-end event triggered')
             res.end();
             next();
-        }); 
+        });  
+        */
         
 
         /* 

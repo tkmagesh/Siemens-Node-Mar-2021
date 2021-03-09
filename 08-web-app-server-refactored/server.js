@@ -2,24 +2,15 @@ var http = require('http'),
     dataParser = require('./data-parser'),
     serveStatic = require('./serve-static'),
     serveCalculator = require('./serve-calculator'),
-    notFoundHandler = require('./not-found-handler');
+    notFoundHandler = require('./not-found-handler'),
+    app = require('./app')
 
-var _middlewares = [ dataParser, serveStatic, serveCalculator, notFoundHandler ];
+app.use(dataParser); 
+app.use(serveStatic);
+app.use(serveCalculator);
+app.use(notFoundHandler);
 
-function exec(req, res, middlewares) {
-    var first = middlewares[0],
-        remaining = middlewares.slice(1),
-        next = function(){
-            exec(req, res, remaining);
-        };
-    if (typeof first === 'function')
-        first(req, res, next);
-}
-   
-var server = http.createServer(function(req , res ){
-    //console.log(req.method + ' - ' + req.urlObj.pathname);
-    exec(req, res, _middlewares);
-});
+var server = http.createServer(app);
 
 server.listen(8080);
 
