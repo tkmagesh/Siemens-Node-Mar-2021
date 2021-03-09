@@ -3,9 +3,11 @@ var http = require('http'),
     serveStatic = require('./serve-static'),
     serveCalculator = require('./serve-calculator'),
     notFoundHandler = require('./not-found-handler'),
-    app = require('./app')
+    logger = require('./logger'),
+    app = require('./app');
 
-app.use(dataParser); 
+app.use(logger); 
+app.use(dataParser);
 app.use(serveStatic);
 app.use(serveCalculator);
 app.use(notFoundHandler);
