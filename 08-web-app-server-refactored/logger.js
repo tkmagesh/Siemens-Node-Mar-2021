@@ -9,7 +9,7 @@ module.exports = function(req, res, next){
         var statusCode = res.statusCode,
             endTime = new Date(),
             elapsed = endTime - startTime;
-        console.log(`${chalk.red(method)}\t${chalk.blue(resource)}\t${chalk.cyan(statusCode)}\t${chalk.yellow(elapsed)}ms`);
+        console.log(`${chalk.green(method)}\t${chalk.blue(resource)}\t${chalk.cyan(statusCode)}\t${chalk.yellow(elapsed)}ms`);
     });
     next();
 }

@@ -126,3 +126,4 @@ npm - node package manager
 npm install <package_name>
 
 npm install chalk
+npm install nodemon --save-dev
