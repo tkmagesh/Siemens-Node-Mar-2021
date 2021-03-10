@@ -131,3 +131,28 @@ npm install nodemon --save-dev
 Express - framework for building web applications in node.js
 express-generator => setup an express application
 
+Important Middlewares for express
+================================================
+cors
+express-session
+helmet
+passport
+
+DIRTi (Data Intesive Realtime Application)
+
+HTML5
+1. Server Sent Events
+2. Web Sockets
+
+Deployment & Process Management tool
+    PM2 (https://www.npmjs.com/package/pm2)
+
+For Debugging
+    node --inspect ./bin/www
+
+    visit chrome://inspect in the chrome browser
+    Click the "Open dedicated DevTools for Node"
+    In the newly opened window - Add connection to localhost:9229
+    IN the the window (developer tools) -> go to "sources" tab
+        Your application should automatically display here
+        If not, drag the application folder and drop it here
