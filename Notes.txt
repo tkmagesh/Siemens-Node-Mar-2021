@@ -127,3 +127,7 @@ npm install <package_name>
 
 npm install chalk
 npm install nodemon --save-dev
+
+Express - framework for building web applications in node.js
+express-generator => setup an express application
+
