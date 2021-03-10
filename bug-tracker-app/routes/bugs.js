@@ -9,13 +9,43 @@ var bugs = [
     {id : 3, name : 'Application not responding', isClosed : false, createdAt : new Date()}, */
 ]
 
-router.get('/', function(req, res, next){
-    dbService.readData(function(err, db){
+router.get('/', async function(req, res, next){
+    //using callbacks
+    /*  dbService.readData(function(err, db){
         if (err){
             return next(err)
         }
         res.json(db.bugs);
+    }); */
+    
+    //using promise
+    /* 
+    var p = dbService.readData();
+    p.then(function(db){
+        res.json(db.bugs);
     });
+    p.catch(function(err){
+        return next(err);
+    }) 
+    */
+
+   /*  
+   dbService.readData()
+        .then(function(db){
+            res.json(db.bugs)
+        })
+        .catch(function(err){
+            return next(err);
+        }); 
+    */
+
+    //using async await
+    try {
+        var db = await dbService.readData();
+        res.json(db.bugs);
+    } catch(err){
+        return next(err);
+    }
     
 });
 
@@ -25,9 +55,10 @@ router.get('/:id', function(req, res, next){
     res.status(404).json({});
 });
 
-router.post('/', function(req, res, next){
+router.post('/', async function(req, res, next){
     var bugToAdd = req.body;
-    dbService.readData(function(err, db){
+    //callbacks
+    /* dbService.readData(function(err, db){
         if (err){
             return next(err)
         }
@@ -42,9 +73,41 @@ router.post('/', function(req, res, next){
             }
             res.status(201).json(bugToAdd);
         });
-    });
+    }); */
+
+    //using promises
+    /* 
+    dbService.readData()
+        .then(function(db){
+            var bugs = db.bugs;
+            if (bugToAdd.id === 0){
+                bugToAdd.id = bugs.reduce((result, bug) => result > bug.id ? result : bug.id, 0) + 1
+            }
+            bugs.push(bugToAdd);
+            return dbService
+                .saveData(db)
+                .then(function(){
+                    res.json(bugToAdd);
+                });
+        })
+        .catch(function(err){
+            return next(err);
+        }) 
+    */
     
-    
+    //using async await
+    try {
+        var db = await dbService.readData();
+        var bugs = db.bugs;
+        if (bugToAdd.id === 0){
+            bugToAdd.id = bugs.reduce((result, bug) => result > bug.id ? result : bug.id, 0) + 1
+        }
+        bugs.push(bugToAdd);
+        await dbService.saveData(db);
+        res.json(bugToAdd);
+    } catch (err){
+        next(err);
+    }
     
 })
 

@@ -4,16 +4,25 @@ var fs = require('fs'),
 var dbFile = path.join(__dirname, '../db/data.json');
 
 function readData(cb){
-    fs.readFile(dbFile, 'utf8', function(err, data){
-        if (err){
-            return cb(err, null);
-        }
-        cb(null, JSON.parse(data));
+    return new Promise(function(resolveFn, rejectFn){
+        fs.readFile(dbFile, 'utf8', function(err, data){
+            if (err){
+                return rejectFn(err);
+            }
+            return resolveFn(JSON.parse(data));
+        });
     });
 }
 
-function saveData(data, cb){
-    fs.writeFile(dbFile, JSON.stringify(data), cb);
+function saveData(data){
+    return new Promise(function(resolveFn, rejectFn){
+        fs.writeFile(dbFile, JSON.stringify(data), function(err){
+            if (err){
+                return rejectFn(err);
+            }
+            return resolveFn()
+        });
+    });
 }
 
 module.exports = {
