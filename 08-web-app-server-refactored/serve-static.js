@@ -1,7 +1,7 @@
 var path = require('path'),
     fs = require('fs');
 
-var staticResExtns = [ '.html', '.css', '.js', '.png', '.jpg', '.xml', '.json', '.txt' ];
+var staticResExtns = [ '.html', '.css', '.png', '.js', '.jpg', '.xml', '.json', '.txt' ];
 
 function isStatic(resourceName){
     var resExn = path.extname(resourceName);
@@ -10,7 +10,7 @@ function isStatic(resourceName){
 
 module.exports = function(req, res, next){
     var resourceName = req.urlObj.pathname === '/' ? '/index.html' : req.urlObj.pathname;
-    var resourceFullName = path.join(__dirname, resourceName);
+    var resourceFullName = path.join(__dirname, 'public', resourceName);
     if (isStatic(resourceName) && fs.existsSync(resourceFullName)){
         var stream = fs.createReadStream(resourceFullName).pipe(res);
         stream.on('end', next);
