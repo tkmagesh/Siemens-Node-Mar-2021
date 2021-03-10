@@ -4,11 +4,12 @@ var http = require('http'),
     serveCalculator = require('./serve-calculator'),
     notFoundHandler = require('./not-found-handler'),
     logger = require('./logger'),
-    app = require('./app');
+    app = require('./app'),
+    path = require('path');
 
 app.use(logger); 
 app.use(dataParser);
-app.use(serveStatic);
+app.use(serveStatic(path.join(__dirname, 'public')));
 app.use(serveCalculator);
 app.use(notFoundHandler);
 

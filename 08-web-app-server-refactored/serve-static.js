@@ -8,33 +8,15 @@ function isStatic(resourceName){
     return staticResExtns.indexOf(resExn) !== -1;
 }
 
-module.exports = function(req, res, next){
-    var resourceName = req.urlObj.pathname === '/' ? '/index.html' : req.urlObj.pathname;
-    var resourceFullName = path.join(__dirname, 'public', resourceName);
-    if (isStatic(resourceName) && fs.existsSync(resourceFullName)){
-        var stream = fs.createReadStream(resourceFullName).pipe(res);
-        stream.on('end', next);
-        
-        /* 
-        var stream = fs.createReadStream(resourceFullName);
-        stream.on('data', function(chunk){
-            console.log('stream-data event triggered')
-            res.write(chunk);
-        });
-        stream.on('end', function(){
-            console.log('stream-end event triggered')
-            res.end();
+module.exports = function(resourcePath){
+    return function(req, res, next){
+        var resourceName = req.urlObj.pathname === '/' ? '/index.html' : req.urlObj.pathname;
+        var resourceFullName = path.join(resourcePath, resourceName);
+        if (isStatic(resourceName) && fs.existsSync(resourceFullName)){
+            var stream = fs.createReadStream(resourceFullName).pipe(res);
+            stream.on('end', next);
+        } else {
             next();
-        });  
-        */
-        
-
-        /* 
-        var fileContents = fs.readFileSync(resourceFullName);
-        res.write(fileContents);
-        res.end(); 
-        */
-    } else {
-        next();
-    }
+        }
+    };
 }
