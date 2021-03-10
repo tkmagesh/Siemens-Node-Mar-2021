@@ -107,3 +107,22 @@ GET/POST http://localhost:8080/abc
 
 PUT/PATCH/DELETE/OPTIONS/HEAD 
     => 405
+
+
+http://localhost:8080/index.html
+
+package.json
+    manifest file for the application documenting all the metadata information
+        - name
+        - version
+        - description
+        - license
+        - dependencies
+        - devDependencies
+        - scripts
+
+npm - node package manager
+
+npm install <package_name>
+
+npm install chalk

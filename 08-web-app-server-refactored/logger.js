@@ -1,3 +1,5 @@
+var chalk = require('chalk');
+
 module.exports = function(req, res, next){
     var urlObj = new URL(req.url, `http://${req.headers.host}`);
     var method = req.method,
@@ -7,7 +9,7 @@ module.exports = function(req, res, next){
         var statusCode = res.statusCode,
             endTime = new Date(),
             elapsed = endTime - startTime;
-        console.log(`${method}\t${resource}\t${statusCode}\t${elapsed}ms`);
+        console.log(`${chalk.red(method)}\t${chalk.blue(resource)}\t${chalk.cyan(statusCode)}\t${chalk.yellow(elapsed)}ms`);
     });
     next();
 }
