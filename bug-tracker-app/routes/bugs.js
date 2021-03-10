@@ -27,4 +27,17 @@ router.post('/', function(req, res, next){
     res.status(201).json(bugToAdd);
 })
 
+router.put('/:id', function(req, res, next){
+    var bugToReplace = req.body;
+    bugs = bugs.map(bug => bug.id === parseInt(req.params.id) ? bugToReplace : bug);
+    res.status(200).json(bugToReplace);
+})
+
+router.delete('/:id', function(req, res, next){
+    var bugToDelete = bugs.find(bug => bug.id === parseInt(req.params.id));
+    if (!bugToDelete) return res.status(404).json({});
+    bugs = bugs.filter( bug => bug.id !== parseInt(req.params.id));
+    res.status(200).json({});
+})
+
 module.exports = router;
