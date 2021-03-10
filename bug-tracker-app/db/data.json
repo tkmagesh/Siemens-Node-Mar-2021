@@ -1,7 +1,1 @@
-{
-    "bugs" : [
-        {"id" : 1, "name" : "Server communication failure", "isClosed" : false},
-        {"id" : 2, "name" : "User access denied", "isClosed" : true},
-        {"id" : 3, "name" : "Application not responding", "isClosed" : false}
-    ]
-]
+{"bugs":[{"id":1,"name":"Server communication failure","isClosed":false},{"id":2,"name":"User access denied","isClosed":true},{"id":3,"name":"Application not responding","isClosed":false},{"id":4,"name":"Authorization failure","isClosed":false},{"id":5,"name":"Parsing JSON data failure","isClosed":false}]}
